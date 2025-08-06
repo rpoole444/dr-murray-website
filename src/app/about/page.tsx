@@ -18,7 +18,7 @@ export default function About() {
           className="rounded shadow-md"
         />
         <div className="prose">
-          <p>[Insert Dr. Murray's full biography here, approximately 3–6 paragraphs. but up to you shorter or longer is a - okay here]</p>
+          <p>[Insert Dr. Murray&apos;s full biography here, approximately 3–6 paragraphs. but up to you shorter or longer is a - okay here]</p>
           <ul>
             <li><strong>Education:</strong> [Insert education here]</li>
             <li><strong>Teaching Experience:</strong> [Columbus State University, University of Northern Colorado]</li>
