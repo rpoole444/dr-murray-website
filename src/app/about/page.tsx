@@ -11,17 +11,17 @@ export default function About() {
 
       <section className="flex flex-col md:flex-row gap-6 items-center">
         <Image
-          src="/images/dr-murray-performing.jpg" // Put an action shot in /public/images/
+          src="/images/RobMurray406x500.jpg" // Put an action shot in /public/images/
           alt="Dr. Murray performing"
           width={400}
           height={400}
           className="rounded shadow-md"
         />
         <div className="prose">
-          <p>[Insert Dr. Murray's full biography here, approximately 3–6 paragraphs.]</p>
+          <p>[Insert Dr. Murray's full biography here, approximately 3–6 paragraphs. but up to you shorter or longer is a - okay here]</p>
           <ul>
-            <li><strong>Education:</strong> [Insert education]</li>
-            <li><strong>Teaching Experience:</strong> [Columbus State University, etc.]</li>
+            <li><strong>Education:</strong> [Insert education here]</li>
+            <li><strong>Teaching Experience:</strong> [Columbus State University, University of Northern Colorado]</li>
             <li><strong>Performance Highlights:</strong> [Key performances, ensembles]</li>
             <li><strong>Awards & Honors:</strong> [List notable awards]</li>
           </ul>
