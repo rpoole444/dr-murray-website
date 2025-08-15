@@ -7,12 +7,15 @@ import { useState } from 'react';
 const links = [
   { href: '/', label: 'Home' },
   { href: '/performance', label: 'Performance' },
+  { href: '/repertoire', label: 'Repertoire' },
+  { href: '/equipment', label: 'Equipment' },  
   { href: '/teaching', label: 'Teaching' },
   { href: '/media', label: 'Media' },
   { href: '/calendar', label: 'Calendar' },
   { href: '/press', label: 'Press' },
   { href: '/contact', label: 'Contact' },
 ];
+
 
 export default function Navbar() {
   const pathname = usePathname();

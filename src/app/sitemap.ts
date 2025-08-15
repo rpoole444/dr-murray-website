@@ -5,14 +5,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
   const routes = [
-    '',               // /
-    '/performance',
-    '/teaching',
-    '/media',
-    '/calendar',
-    '/press',
-    '/contact',
-  ];
+  '',               
+  '/performance',
+  '/repertoire',    
+  '/equipment',     
+  '/teaching',
+  '/media',
+  '/calendar',
+  '/press',
+  '/contact',
+];
+
 
   return routes.map((path) => ({
     url: `${base}${path}`,

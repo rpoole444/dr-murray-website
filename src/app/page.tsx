@@ -67,6 +67,11 @@ export default function Home() {
             desc="Selected videos, audio, and photos."
             href="/media"
           />
+          <FeatureCard
+            title="Repertoire"
+            desc="Solo, chamber, contemporary & commercial."
+            href="/repertoire"
+          />
         </div>
       </section>
 
