@@ -12,6 +12,14 @@ const Schema = z.object({
   hp: z.string().optional(), // honeypot
 });
 
+// Map reasons to cleaner subject labels
+const reasonLabels: Record<string, string> = {
+  'Performance booking': 'Performance Inquiry',
+  'Private lessons': 'Lesson Inquiry',
+  'Clinic / masterclass': 'Clinic / Masterclass Inquiry',
+  'Other': 'General Inquiry'
+};
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
@@ -31,35 +39,34 @@ export async function POST(req: NextRequest) {
     if (hp && hp.trim().length > 0) {
       return NextResponse.json({ ok: true });
     }
+const reasonLabel = reasonLabels[reason || 'Other'] || 'General Inquiry';
 
-    const subject = `New inquiry — ${name} (${reason || 'General'})`;
+    const subject = `New ${reasonLabel} — ${name}`;
     const text = [
-      'New website inquiry',
+      `New ${reasonLabel}`,
       `Name: ${name}`,
       `Email: ${email}`,
       reason ? `Reason: ${reason}` : null,
       '',
       'Message:',
       message,
-    ]
-      .filter(Boolean)
-      .join('\n');
+    ].filter(Boolean).join('\n');
 
     const html = `
-      <h2>New website inquiry</h2>
+      <h2>New ${reasonLabel}</h2>
       <p><b>Name:</b> ${name}</p>
-      <p><b>Email:</b> ${email}</p>
+      <p><b>Email:</b> <a href="mailto:${email}">${email}</a></p>
       ${reason ? `<p><b>Reason:</b> ${reason}</p>` : ''}
       <p><b>Message:</b></p>
       <pre style="white-space:pre-wrap;">${message}</pre>
     `;
 
     const { data, error } = await resend.emails.send({
-      from: process.env.CONTACT_FROM!,     // e.g. "Dr. Robert Murray Website <onboarding@resend.dev>"
-      to: process.env.CONTACT_TO!,         // e.g. poole.reid@gmail.com (testing)
-      replyTo: email,                     // ✅ correct key for Resend
+      from: process.env.CONTACT_FROM!, // e.g. "Dr. Robert Murray Website <onboarding@resend.dev>"
+      to: process.env.CONTACT_TO!,     // e.g. poole.reid@gmail.com (testing)
+      replyTo: email,
       subject,
-      text,                                // ✅ helps deliverability
+      text,
       html,
     });
 
