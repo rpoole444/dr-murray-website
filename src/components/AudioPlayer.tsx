@@ -92,8 +92,8 @@ export default function AudioPlayer({ tracks = defaultPlaylist }: { tracks?: Tra
   }, [volume]);
 
   return (
-    <div className="fixed bottom-0 inset-x-0 z-40 border-t border-white/10 bg-black/70 backdrop-blur">
-      <div className="max-w-6xl mx-auto px-4 py-3 flex flex-col md:flex-row md:items-center gap-3">
+    <div className="fixed bottom-0 inset-x-0 z-50 border-t border-white/10 bg-black/70 backdrop-blur">
+      <div className="max-w-6xl mx-auto px-4 py-2 flex flex-col md:flex-row md:items-center gap-3">
         {/* Prompt (first visit) */}
         {showPrompt && (
           <button
