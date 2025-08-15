@@ -2,6 +2,19 @@ import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { z } from 'zod';
 
+const ipHits = new Map<string, { count: number; ts: number }>();
+const WINDOW_MS = 60_000; // 1 minute
+const MAX = 5;
+
+function limited(ip: string) {
+  const now = Date.now();
+  const rec = ipHits.get(ip);
+  if (!rec || now - rec.ts > WINDOW_MS) {
+    ipHits.set(ip, { count: 1, ts: now }); return false;
+  }
+  rec.count++; return rec.count > MAX;
+}
+
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 const Schema = z.object({
@@ -21,6 +34,10 @@ const reasonLabels: Record<string, string> = {
 };
 
 export async function POST(req: NextRequest) {
+  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
+  if (limited(ip)) {
+    return NextResponse.json({ ok: false, error: 'Too many requests. Try again soon.' }, { status: 429 });
+  }
   try {
     const body = await req.json();
     const parsed = Schema.safeParse(body);

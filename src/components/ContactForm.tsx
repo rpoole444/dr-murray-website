@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import { useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 type FieldErrors = Partial<Record<'name' | 'email' | 'reason' | 'message' | 'hp', string[]>>;
 
@@ -9,8 +11,16 @@ export default function ContactForm() {
   const [error, setError] = useState('');
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [messageValue, setMessageValue] = useState('');
-
   const minMessage = 10;
+  
+  const sp = useSearchParams();
+  useEffect(() => {
+    const r = sp.get('reason');
+    if (r) {
+      const sel = document.querySelector('select[name="reason"]') as HTMLSelectElement | null;
+      if (sel) sel.value = r;
+    }
+  }, [sp]);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
