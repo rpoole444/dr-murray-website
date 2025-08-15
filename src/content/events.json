@@ -1,0 +1,15 @@
+[
+  {
+    "title": "Recital — Solo Trumpet",
+    "date": "2025-09-12T19:30:00-06:00",
+    "venue": "Harmonie del Sur",
+    "city": "Denver, CO",
+    "link": "https://example.com/tickets"
+  },
+  {
+    "title": "Clinic — Brass Techniques",
+    "date": "2025-10-03T14:00:00-06:00",
+    "venue": "University of Colorado",
+    "city": "Boulder, CO"
+  }
+]
