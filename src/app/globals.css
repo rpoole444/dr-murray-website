@@ -24,3 +24,9 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+:root {
+  --accent: 245 100% 67%; /* tweak later */
+}
+a { text-underline-offset: 3px; }
+a:hover { text-decoration-thickness: 2px; }
