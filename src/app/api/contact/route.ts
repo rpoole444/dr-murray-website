@@ -73,14 +73,47 @@ const replyToWithLabel = `${name} (${reasonLabel}) <${email}>`;
       html,
     });
 
-    if (error) {
+       if (error) {
       console.error('Resend error:', error);
       return NextResponse.json({ ok: false, error: 'Email send failed' }, { status: 502 });
     }
+
+       // ---- Auto-reply to the sender ----
+    try {
+      const ackSubject = `Thanks for your ${reasonLabel} — Dr. Rob Murray`;
+      const ackText = `Hi ${name},
+
+        Thanks for your ${reasonLabel.toLowerCase()}. I’ve received it and will follow up shortly.
+
+        — Dr. Rob Murray
+        Bookings & Lessons: ${process.env.CONTACT_TO}
+        Website: https://robert-murray-site.vercel.app`;
+
+      const ackHtml = `
+        <p>Hi ${name},</p>
+        <p>Thanks for your <b>${reasonLabel.toLowerCase()}</b>. I’ve received it and will follow up shortly.</p>
+        <p>— Dr. Rob Murray<br/>
+        Bookings &amp; Lessons: <a href="mailto:${process.env.CONTACT_TO}">${process.env.CONTACT_TO}</a><br/>
+        Website: <a href="https://robert-murray-site.vercel.app">robert-murray-site.vercel.app</a></p>
+      `;
+
+      await resend.emails.send({
+        from: process.env.CONTACT_FROM!,
+        to: email, // sender's email
+        subject: ackSubject,
+        text: ackText,
+        html: ackHtml,
+      });
+    } catch (e) {
+      console.warn('Auto-reply failed (ignored):', e);
+    }
+    // ---- End auto-reply ----
+
 
     return NextResponse.json({ ok: true, id: data?.id });
   } catch (err) {
     console.error('contact error:', err);
     return NextResponse.json({ ok: false, error: 'Server error' }, { status: 500 });
   }
+  
 }
