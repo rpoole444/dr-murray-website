@@ -1,23 +1,34 @@
-// src/components/ui.tsx
-import Link from 'next/link';
+import Link, { LinkProps } from 'next/link';
+import * as React from 'react';
 
-export function Section({ children, className = '' }: { children: React.ReactNode; className?: string }) {
-  return <section className={`max-w-5xl mx-auto px-4 ${className}`}>{children}</section>;
+type Variant = 'primary' | 'secondary';
+
+const base =
+  'inline-flex items-center justify-center rounded-full px-5 py-2.5 font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2';
+const styles: Record<Variant, string> = {
+  primary: 'bg-white text-black hover:opacity-90 focus-visible:ring-white',
+  secondary: 'border border-white/30 hover:bg-white/10 focus-visible:ring-white',
+};
+
+export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  variant?: Variant;
+  className?: string;
+};
+export function Button({ variant = 'primary', className = '', ...props }: ButtonProps) {
+  return <button className={`${base} ${styles[variant]} ${className}`} {...props} />;
 }
 
-export function Button({
-  as = 'button', href, children, variant = 'primary', className = '', ...props
-}: any) {
-  const base =
-    'inline-flex items-center justify-center rounded-full px-5 py-2.5 font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2';
-  const styles =
-    variant === 'primary'
-      ? 'bg-white text-black hover:opacity-90 focus-visible:ring-white'
-      : 'border border-white/30 hover:bg-white/10 focus-visible:ring-white';
-  const Tag: any = href ? Link : as;
+export type ButtonLinkProps = Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'href'> &
+  LinkProps & {
+    variant?: Variant;
+    className?: string;
+    children: React.ReactNode;
+  };
+
+export function ButtonLink({ href, children, variant = 'primary', className = '', ...props }: ButtonLinkProps) {
   return (
-    <Tag href={href} className={`${base} ${styles} ${className}`} {...props}>
+    <Link href={href} className={`${base} ${styles[variant]} ${className}`} {...props}>
       {children}
-    </Tag>
+    </Link>
   );
 }

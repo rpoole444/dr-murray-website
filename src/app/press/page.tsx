@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-
+import { ButtonLink } from '@/components/ui';
 export const metadata = {
   title: 'Press Kit',
   description: 'Downloadable press materials: one-sheet, headshots, and short bio.',
@@ -29,11 +29,11 @@ export default function PressPage() {
           available on this site; booking inquiries are welcome.
         </p>
         <div className="mt-4">
-          <Link href="/contact" className="underline">Booking & media requests →</Link>
+          <ButtonLink href="/contact" variant="secondary">Booking & media requests</ButtonLink>
         </div>
       </section>
 
-      {/* Downloads */}
+      {/* Downloads */}a
       <section className="mb-10">
         <h2 className="text-xl font-semibold mb-3">Downloads</h2>
         <ul className="list-disc pl-5 space-y-2">

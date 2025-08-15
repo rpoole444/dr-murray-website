@@ -1,5 +1,5 @@
 import Link from 'next/link';
-
+import { ButtonLink } from '@/components/ui';
 export const metadata = {
   title: 'Performance',
   description: 'Solo, orchestral, commercial performance and contracting.',
@@ -37,13 +37,8 @@ export default function PerformancePage() {
 
       {/* CTAs */}
       <div className="flex flex-wrap gap-3">
-        <Link className="underline" href="/calendar">See upcoming dates</Link>
-        <Link
-          href="/contact"
-          className="inline-flex items-center rounded-full px-5 py-2.5 bg-white text-black font-medium hover:opacity-90"
-        >
-          Book a performance
-        </Link>
+       <Link className="underline" href="/calendar">See upcoming dates</Link>  {/* keep as text link */}
+       <ButtonLink href="/contact">Book a performance</ButtonLink>
       </div>
 
       {/* JSON-LD to describe service (optional but helpful) */}

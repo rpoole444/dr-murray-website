@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import Image from 'next/image';
 import type { Video, Track, Photo } from '@/types/media';
 
 export default function MediaTabs({ videos, audio, photos }:{
@@ -52,17 +53,23 @@ export default function MediaTabs({ videos, audio, photos }:{
           ))}
         </ul>
       )}
-
       {tab==='photos' && (
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
           {photos.map((p) => (
             <figure key={p.id}>
-              <img src={p.src} alt={p.alt} className="w-full h-auto rounded" />
+              <Image
+                src={p.src}
+                alt={p.alt}
+                width={600}
+                height={400}
+                className="w-full h-auto rounded"
+              />
               {p.credit && <figcaption className="text-xs mt-1">© {p.credit}</figcaption>}
             </figure>
           ))}
         </div>
       )}
+
     </section>
   );
 }

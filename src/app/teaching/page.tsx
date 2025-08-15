@@ -1,5 +1,5 @@
 import Link from 'next/link';
-
+import { ButtonLink } from '@/components/ui';
 export const metadata = {
   title: 'Teaching',
   description: 'Private lessons, clinics, and masterclasses with Dr. Rob Murray.',
@@ -35,12 +35,7 @@ export default function TeachingPage() {
       </section>
 
       <div className="mt-6">
-        <Link
-          href="/contact"
-          className="inline-flex items-center rounded-full px-5 py-2.5 bg-white text-black font-medium hover:opacity-90"
-        >
-          Request lessons / clinic
-        </Link>
+        <ButtonLink href="/contact">Request lessons / clinic</ButtonLink>
       </div>
 
       {/* Simple Service JSON-LD */}
