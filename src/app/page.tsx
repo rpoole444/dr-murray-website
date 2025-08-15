@@ -27,8 +27,8 @@ export default function Home() {
   return (
     <main className="min-h-screen px-6 py-12">
       {/* HERO */}
-      <section className="max-w-5xl mx-auto text-center">
-        <Image
+<section className="max-w-4xl mx-auto px-4 pt-10 text-center">
+          <Image
           src="/images/rob-murray-p-mauriat-artist-0.webp"
           alt="Portrait of Dr. Rob Murray holding a trumpet"
           width={220}
@@ -36,12 +36,9 @@ export default function Home() {
           className="rounded-full shadow-lg mx-auto"
           priority
         />
-        <h1 className="text-4xl md:text-5xl font-bold mt-5">Dr. Rob&nbsp;Murray</h1>
-        <p className="text-lg md:text-xl mt-2 text-neutral-300">
-          Trumpet artist, educator, and conductor
-        </p>
+        <h1 className="h1 font-semibold mt-5">Rob Murray, DMA</h1>
+        <p className="text-secondary mt-2">Trumpet Artist • Educator • Conductor</p>
 
-        {/* Primary CTA */}
         <div className="mt-6 flex items-center justify-center gap-3">
           <ButtonLink href="/contact">Book / Contact</ButtonLink>
           <ButtonLink href="/media" variant="secondary">View Media</ButtonLink>

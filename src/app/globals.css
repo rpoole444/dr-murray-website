@@ -63,7 +63,50 @@ body {
   padding-bottom: 2px;
 }
 
-/* Remove the old global link rules you had:
-   a { text-underline-offset: 3px; }
-   a:hover { text-decoration-thickness: 2px; }
-*/
+/* --- Typography scale & rhythm --- */
+:root {
+  --leading-tight: 1.15;
+  --leading-copy: 1.6;
+  --tracking-tight: -0.01em;
+  --radius-xl: 1rem;      /* 16px rounded */
+  --radius-2xl: 1.25rem;  /* 20px rounded */
+}
+
+/* Headings: tighter tracking and leading */
+.h1 { font-size: clamp(2rem, 4vw, 2.5rem); line-height: var(--leading-tight); letter-spacing: var(--tracking-tight); }
+.h2 { font-size: clamp(1.5rem, 3vw, 2rem); line-height: var(--leading-tight); letter-spacing: var(--tracking-tight); }
+.h3 { font-size: 1.25rem; line-height: 1.3; }
+
+/* Copy */
+.prose { line-height: var(--leading-copy); font-size: 15px; }
+
+/* Subtle card surface + gradient edge */
+.surface {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-2xl);
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+  transition: background 150ms ease, transform 150ms ease, border-color 150ms ease;
+}
+.surface:hover { background: rgba(255,255,255,0.06); transform: translateY(-1px); }
+
+/* Inset divider (for card headers/footers) */
+.rule {
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+/* Buttons (base; variants in ui.tsx will compose these) */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 0.625rem 1rem; border-radius: 999px; font-weight: 600;
+  transition: opacity 150ms ease, background 150ms ease, transform 150ms ease;
+}
+.btn:active { transform: translateY(1px); }
+
+/* Quiet small caps label (for overlines) */
+.label {
+  font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--foreground-secondary);
+}
+
+/* Hero portrait polish */
+.portrait { border-radius: 9999px; box-shadow: 0 10px 30px rgba(0,0,0,.4); outline: 1px solid rgba(255,255,255,.12); outline-offset: -1px; }

@@ -34,7 +34,9 @@ export default function Navbar() {
               <li key={l.href}>
                 <Link
                   href={l.href}
-                  className={`transition-opacity hover:opacity-100 ${active ? 'opacity-100 underline' : 'opacity-80'}`}
+                  className={`transition-opacity hover:opacity-100 no-underline font-medium ${
+                    active ? 'opacity-100 nav-ink' : 'opacity-80'
+                  }`}
                   aria-current={active ? 'page' : undefined}
                 >
                   {l.label}
@@ -69,12 +71,13 @@ export default function Navbar() {
                 <li key={l.href}>
                   <Link
                     href={l.href}
-                    className={`block py-1 ${active ? 'underline' : 'opacity-90'}`}
+                    className={`block py-2 text-sm font-medium ${active ? 'nav-ink' : 'opacity-90 no-underline'}`}
                     onClick={() => setOpen(false)}
                     aria-current={active ? 'page' : undefined}
                   >
                     {l.label}
                   </Link>
+
                 </li>
               );
             })}
