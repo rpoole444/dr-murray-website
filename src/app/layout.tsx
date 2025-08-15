@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import Navbar from '@/components/Navbar';
 import './globals.css';
+import AudioPlayer from '@/components/AudioPlayer';
 
 const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] });
 const geistMono = Geist_Mono({ variable: '--font-geist-mono', subsets: ['latin'] });
@@ -21,6 +22,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <Navbar />
         {children}
+        <div className="h-20 md:h-16">
+          <AudioPlayer />
+        </div>
+
         <footer className="mt-16 border-t border-white/10">
           <div className="max-w-6xl mx-auto px-4 py-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <p className="opacity-70 text-sm">© {new Date().getFullYear()} Rob Murray</p>
