@@ -22,10 +22,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <Navbar />
         {children}
-        <div className="h-20 md:h-16">
+        <div className="hidden md:block h-16" />
           <AudioPlayer />
-        </div>
-
         <footer className="mt-16 border-t border-white/10">
           <div className="max-w-6xl mx-auto px-4 py-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <p className="opacity-70 text-sm">© {new Date().getFullYear()} Rob Murray</p>
