@@ -64,7 +64,7 @@ export default function Home() {
           <FeatureCard
             title="Performance"
             desc="Solo, orchestral, commercial & contracting."
-            href="/calendar"
+            href="/performance"
           />
           <FeatureCard
             title="Teaching"
