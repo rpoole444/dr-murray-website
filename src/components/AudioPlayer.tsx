@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { playlist as defaultPlaylist, type Track } from '@/content/playlist';
 
 function formatTime(s: number) {
@@ -22,27 +22,6 @@ export default function AudioPlayer({ tracks = defaultPlaylist }: { tracks?: Tra
 
   const track = useMemo(() => tracks[idx], [tracks, idx]);
 
-  // Wire audio events
-  useEffect(() => {
-    const el = audioRef.current;
-    if (!el) return;
-
-    const onTime = () => setCurrentTime(el.currentTime || 0);
-    const onLoaded = () => setDuration(el.duration || 0);
-    const onEnded = () => next();
-
-    el.addEventListener('timeupdate', onTime);
-    el.addEventListener('loadedmetadata', onLoaded);
-    el.addEventListener('ended', onEnded);
-    el.volume = volume;
-
-    return () => {
-      el.removeEventListener('timeupdate', onTime);
-      el.removeEventListener('loadedmetadata', onLoaded);
-      el.removeEventListener('ended', onEnded);
-    };
-  }, [idx, volume]);
-
   function play() {
     const el = audioRef.current;
     if (!el) return;
@@ -61,32 +40,54 @@ export default function AudioPlayer({ tracks = defaultPlaylist }: { tracks?: Tra
         setShowPrompt(true); // keep prompt visible if blocked
       });
   }
-
+  
   function pause() {
     audioRef.current?.pause();
     setPlaying(false);
   }
-
+  
   function toggle() {
     playing ? pause() : play();
   }
-
+  
   function seek(pct: number) {
     const el = audioRef.current;
     if (!el || !duration) return;
     el.currentTime = pct * duration;
   }
+  
+  const next = useCallback(() => {
+  setIdx((i) => (i + 1) % tracks.length);
+  // resume playback if we were playing
+  setTimeout(() => { if (playing) play(); }, 0);
+  }, [tracks.length, playing]); // play() is stable by reference here; if not, add it.
+  
+  const prev = useCallback(() => {
+  setIdx((i) => (i - 1 + tracks.length) % tracks.length);
+  setTimeout(() => { if (playing) play(); }, 0);
+  }, [tracks.length, playing]);
+  // Wire audio events
+useEffect(() => {
+  const el = audioRef.current;
+  if (!el) return;
 
-  function next() {
-    setIdx((i) => (i + 1) % tracks.length);
-    // keep playing state if it was playing
-    setTimeout(() => playing && play(), 0);
-  }
+  const onTime = () => setCurrentTime(el.currentTime || 0);
+  const onLoaded = () => setDuration(el.duration || 0);
+  const onEnded = () => next(); // ✅ safe
 
-  function prev() {
-    setIdx((i) => (i - 1 + tracks.length) % tracks.length);
-    setTimeout(() => playing && play(), 0);
-  }
+  el.addEventListener('timeupdate', onTime);
+  el.addEventListener('loadedmetadata', onLoaded);
+  el.addEventListener('ended', onEnded);
+  el.volume = volume;
+
+  return () => {
+    el.removeEventListener('timeupdate', onTime);
+    el.removeEventListener('loadedmetadata', onLoaded);
+    el.removeEventListener('ended', onEnded);
+  };
+}, [idx, volume, next]);
+
+
 
   // Keep element volume synced
   useEffect(() => {

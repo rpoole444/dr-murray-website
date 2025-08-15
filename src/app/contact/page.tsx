@@ -1,5 +1,6 @@
 // app/contact/page.tsx  ✅ SERVER COMPONENT (no "use client")
 import ContactForm from '@/components/ContactForm';
+import { Suspense } from 'react';
 
 export const metadata = {
   title: 'Contact',
@@ -8,12 +9,16 @@ export const metadata = {
 
 export default function ContactPage() {
   return (
-    <main className="max-w-xl mx-auto px-4 py-12">
-      <h1 className="text-3xl font-bold mb-6">Contact Dr. Murray</h1>
-      <ContactForm />   {/* client child */}
-      <p className="mt-4 text-sm">
-        Prefer email? <a className="underline" href="mailto:AJNA100@gmail.com">AJNA100@gmail.com</a>
+    <main className="max-w-3xl mx-auto px-4 py-10">
+      <h1 className="text-3xl font-bold mb-4">Get in touch</h1>
+      <p className="opacity-80 mb-6">
+        For performance bookings, lessons, clinics, or media requests, use the form below.
       </p>
+
+      {/* ✅ Required: Suspense wrapper when child uses useSearchParams */}
+      <Suspense fallback={null}>
+        <ContactForm />
+      </Suspense>
     </main>
   );
 }

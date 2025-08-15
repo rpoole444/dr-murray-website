@@ -81,7 +81,7 @@ export default function ContactForm() {
         setError(data?.error || 'Something went wrong.');
         setStatus('error');
       }
-    } catch (_) {
+    } catch {
       setError('Network error. Please try again.');
       setStatus('error');
     }

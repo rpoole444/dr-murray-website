@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { ButtonLink } from '@/components/ui';
 import testimonials from '@/content/testimonials.json';
 import Testimonials from '@/components/Testimonials';
