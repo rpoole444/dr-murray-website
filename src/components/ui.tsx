@@ -32,3 +32,17 @@ export function ButtonLink({ href, children, variant = 'primary', className = ''
     </Link>
   );
 }
+
+export type CardProps = React.HTMLAttributes<HTMLDivElement> & {
+  as?: React.ElementType;
+  className?: string;
+};
+
+export function Card({ as: Component = 'div', className = '', ...props }: CardProps) {
+  return (
+    <Component
+      className={`rounded-2xl border border-white/10 p-5 hover:bg-white/5 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white ${className}`}
+      {...props}
+    />
+  );
+}
