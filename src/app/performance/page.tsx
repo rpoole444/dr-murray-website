@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import { ButtonLink } from '@/components/ui';
+import testimonials from '@/content/testimonials.json';
+import Testimonials from '@/components/Testimonials';
 export const metadata = {
   title: 'Performance',
   description: 'Solo, orchestral, commercial performance and contracting.',
@@ -33,6 +35,10 @@ export default function PerformancePage() {
         <p className="opacity-80 text-sm">
           Hummel, Haydn, Arutunian, Tomasi; Baroque piccolo works; contemporary trumpet literature; commercial/lead book.
         </p>
+      </section>
+
+      <section className="mb-10">
+        <Testimonials items={testimonials} />
       </section>
 
       {/* CTAs */}

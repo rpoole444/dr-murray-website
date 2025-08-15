@@ -1,5 +1,8 @@
 import Link from 'next/link';
 import { ButtonLink } from '@/components/ui';
+import testimonials from '@/content/testimonials.json';
+import Testimonials from '@/components/Testimonials';
+
 export const metadata = {
   title: 'Teaching',
   description: 'Private lessons, clinics, and masterclasses with Dr. Rob Murray.',
@@ -33,6 +36,12 @@ export default function TeachingPage() {
           <li>Practice design & performance psychology</li>
         </ul>
       </section>
+      
+      <section className="space-y-3 mb-10">
+        <Testimonials items={testimonials} />
+      </section>
+
+
 
       <div className="mt-6">
         <ButtonLink href="/contact">Request lessons / clinic</ButtonLink>
