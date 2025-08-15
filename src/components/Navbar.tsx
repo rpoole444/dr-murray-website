@@ -34,7 +34,7 @@ export default function Navbar() {
               <li key={l.href}>
                 <Link
                   href={l.href}
-                  className={`transition-opacity hover:opacity-100 ${active ? 'opacity-100 underline' : 'opacity-80'}`}
+                  className={`transition-opacity hover:opacity-100 no-underline ${active ? 'opacity-100 underline underline-offset-4' : 'opacity-80'}`}
                   aria-current={active ? 'page' : undefined}
                 >
                   {l.label}
@@ -62,14 +62,14 @@ export default function Navbar() {
       {/* Mobile sheet */}
       {open && (
         <div id="mobile-menu" className="md:hidden border-t border-white/10">
-          <ul className="max-w-6xl mx-auto px-4 py-3 flex flex-col gap-3">
+          <ul className="max-w-6xl mx-auto px-4 py-3 flex flex-col gap-3 text-sm">
             {links.map((l) => {
               const active = pathname === l.href;
               return (
                 <li key={l.href}>
                   <Link
                     href={l.href}
-                    className={`block py-1 ${active ? 'underline' : 'opacity-90'}`}
+                    className={`block py-2 ${active ? 'underline underline-offset-4' : 'opacity-90 no-underline'}`}
                     onClick={() => setOpen(false)}
                     aria-current={active ? 'page' : undefined}
                   >
