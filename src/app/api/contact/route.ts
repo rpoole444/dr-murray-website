@@ -60,11 +60,14 @@ const reasonLabel = reasonLabels[reason || 'Other'] || 'General Inquiry';
       <p><b>Message:</b></p>
       <pre style="white-space:pre-wrap;">${message}</pre>
     `;
+// Build a Reply-To with a display name that includes the inquiry type
+const replyToWithLabel = `${name} (${reasonLabel}) <${email}>`;
+
 
     const { data, error } = await resend.emails.send({
       from: process.env.CONTACT_FROM!, // e.g. "Dr. Robert Murray Website <onboarding@resend.dev>"
       to: process.env.CONTACT_TO!,     // e.g. poole.reid@gmail.com (testing)
-      replyTo: email,
+      replyTo: replyToWithLabel,
       subject,
       text,
       html,
