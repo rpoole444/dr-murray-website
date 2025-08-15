@@ -1,32 +1,69 @@
 @import "tailwindcss";
 
+/* ---- Theme tokens ---- */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Background gradient (near-black, subtle) */
+  --background-start: #0B0B0C;
+  --background-end:   #0E0E11;
+
+  /* Text + accents */
+  --foreground:            rgba(255, 255, 255, 0.92);
+  --foreground-secondary:  rgba(255, 255, 255, 0.75);
+  --border:                rgba(255, 255, 255, 0.10);
+  --accent:                245 100% 67%; /* HSL: adjust later if desired */
 }
 
+/* Tailwind theme bindings (Next + Geist font vars) */
 @theme inline {
-  --color-background: var(--background);
+  --color-background: var(--background-start);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* ---- Base styles ---- */
 body {
-  background: var(--background);
+  background: linear-gradient(180deg, var(--background-start), var(--background-end));
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }
 
-:root {
-  --accent: 245 100% 67%; /* tweak later */
+/* Secondary text helper */
+.text-secondary {
+  color: var(--foreground-secondary);
 }
-a { text-underline-offset: 3px; }
-a:hover { text-decoration-thickness: 2px; }
+
+/* ---- Link utilities (no global underline) ---- */
+/* Use this for inline/prose links */
+.link {
+  text-decoration: none;
+  text-underline-offset: 4px;
+  transition: color 150ms ease;
+}
+.link:hover {
+  color: hsl(var(--accent));
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+/* Use this for active nav indicators or emphasized links */
+.underline-accent {
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  text-decoration-thickness: 2px;
+  text-decoration-color: hsl(var(--accent));
+}
+
+/* Optional: ink-style active underline for nav (alternative to underline-accent) */
+.nav-ink {
+  background-image: linear-gradient(hsl(var(--accent)), hsl(var(--accent)));
+  background-repeat: no-repeat;
+  background-size: 100% 2px;
+  background-position: 0 100%;
+  padding-bottom: 2px;
+}
+
+/* Remove the old global link rules you had:
+   a { text-underline-offset: 3px; }
+   a:hover { text-decoration-thickness: 2px; }
+*/

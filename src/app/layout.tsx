@@ -48,7 +48,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* desktop spacer so fixed desktop player doesn't overlap content bottoms */}
         <div className="hidden md:block h-16" />
 
-        {/* global audio player (floating on mobile, fixed bar on desktop) */}
         <AudioPlayer />
 
         <footer className="mt-16 border-t border-white/10">

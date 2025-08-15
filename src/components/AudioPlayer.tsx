@@ -60,12 +60,12 @@ export default function AudioPlayer({ tracks = defaultPlaylist }: { tracks?: Tra
   setIdx((i) => (i + 1) % tracks.length);
   // resume playback if we were playing
   setTimeout(() => { if (playing) play(); }, 0);
-  }, [tracks.length, playing]); // play() is stable by reference here; if not, add it.
+  }, [tracks.length, playing, play]); // play() is stable by reference here; if not, add it.
   
   const prev = useCallback(() => {
   setIdx((i) => (i - 1 + tracks.length) % tracks.length);
   setTimeout(() => { if (playing) play(); }, 0);
-  }, [tracks.length, playing]);
+  }, [tracks.length, playing, play]);
   // Wire audio events
 useEffect(() => {
   const el = audioRef.current;
