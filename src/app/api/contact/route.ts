@@ -5,10 +5,10 @@ import { z } from 'zod';
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 const Schema = z.object({
-  name: z.string().min(2).max(100),
-  email: z.string().email(),
+  name: z.string().min(2, 'Please enter your full name (at least 2 characters).'),
+  email: z.string().email('Enter a valid email address.'),
   reason: z.string().optional(),
-  message: z.string().min(10).max(5000),
+  message: z.string().min(10, 'Message must be at least 10 characters.'),
   hp: z.string().optional(), // honeypot
 });
 
@@ -17,7 +17,12 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const parsed = Schema.safeParse(body);
     if (!parsed.success) {
-      return NextResponse.json({ ok: false, error: 'Invalid input' }, { status: 400 });
+      // Return field-level errors so the client can highlight inputs
+      const issues = parsed.error.flatten(); // { fieldErrors, formErrors }
+      return NextResponse.json(
+        { ok: false, error: 'Invalid input', issues },
+        { status: 400 }
+      );
     }
 
     const { name, email, reason, message, hp } = parsed.data;
