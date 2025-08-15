@@ -12,6 +12,12 @@ export default function PerformancePage() {
     <main className="max-w-5xl mx-auto px-4 py-10">
       <h1 className="text-3xl font-bold mb-6">Performance</h1>
 
+      <div className="mt-2 mb-6 flex flex-wrap gap-3 text-sm">
+        <a className="underline opacity-90 hover:opacity-100" href="/repertoire">View repertoire</a>
+        <span className="opacity-40">•</span>
+        <a className="underline opacity-90 hover:opacity-100" href="/equipment">See equipment</a>
+      </div>
+
       {/* Services */}
       <section className="grid md:grid-cols-3 gap-4 mb-10">
         <Card title="Solo & Concerto" text="Recitals, concerto features, sacred music." />
